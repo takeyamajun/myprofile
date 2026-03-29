@@ -6,7 +6,7 @@
     <title>TAKEYAMA JUN | Portfolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800;900&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
     
     <style>
         /* =========================================
@@ -17,9 +17,10 @@
             --white: #ffffff;
             --gray-light: #f5f5f7;
             --gray-text: #6e6e73;
-            --accent-red: #D90429; /* 鮮烈で知的な赤 */
+            --gray-text-light: #a1a1a6;
+            --accent-red: #D90429;
             --border-color: #e5e5ea;
-            --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --transition-smooth: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * {
@@ -39,13 +40,35 @@
         }
 
         /* =========================================
-           2. Typography & Layout
+           2. Typography, Layout & Backgrounds
         ========================================= */
         .container {
             width: 90%;
             max-width: 1100px;
             margin: 0 auto;
-            padding: 120px 0;
+            padding: 150px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* セクション背景の工夫（ウォーターマーク） */
+        .section-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .watermark {
+            position: absolute;
+            font-size: 15vw;
+            font-weight: 900;
+            color: rgba(0, 0, 0, 0.03);
+            z-index: 1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            pointer-events: none;
+            letter-spacing: -0.05em;
         }
 
         .section-header {
@@ -79,13 +102,14 @@
         }
 
         /* =========================================
-           3. Hero Section (Dark Theme with Background Image)
+           3. Hero Section
         ========================================= */
         .hero {
             background-color: var(--black);
-            background-image: url('https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=1600'); /* 【修正】データのネットワークや流れを連想させる抽象画像 */
+            background-image: url('https://images.unsplash.com/photo-1510511459019-5dda7724fd87?q=80&w=1600');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed; /* パララックス効果 */
             color: var(--white);
             min-height: 100vh;
             display: flex;
@@ -94,15 +118,11 @@
             padding: 0 5%;
         }
 
-        /* 文字の視認性を確保するための暗いオーバーレイ */
         .hero::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(10, 10, 10, 0.85); /* 暗くする */
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.7) 100%);
             z-index: 1;
         }
 
@@ -111,32 +131,29 @@
             margin: 0 auto;
             width: 100%;
             position: relative;
-            z-index: 2; /* オーバーレイより上に配置 */
+            z-index: 2;
         }
 
         .hero-eyebrow {
             font-family: 'Inter', sans-serif;
             font-size: 14px;
             letter-spacing: 0.2em;
-            color: var(--gray-text);
+            color: var(--gray-text-light);
             text-transform: uppercase;
             margin-bottom: 20px;
             display: block;
         }
 
         .hero-title {
-            font-size: clamp(4rem, 10vw, 8rem);
+            font-size: clamp(4rem, 10vw, 8.5rem);
             font-weight: 800;
             line-height: 0.9;
             letter-spacing: -0.04em;
             margin-bottom: 40px;
         }
 
-        .hero-title span {
-            display: block;
-        }
+        .hero-title span { display: block; }
 
-        /* 赤いアクセントライン */
         .hero-line {
             width: 80px;
             height: 4px;
@@ -161,20 +178,19 @@
             align-items: start;
         }
 
-        .about-image-container {
-            position: relative;
-        }
-
         .about-image {
             width: 100%;
             aspect-ratio: 3/4;
             object-fit: cover;
-            filter: grayscale(100%); /* 【保持】モノクロ化 */
+            filter: grayscale(100%);
             transition: var(--transition-smooth);
+            box-shadow: 20px 20px 0px var(--gray-light); /* プロっぽいズレた影 */
         }
 
         .about-image:hover {
-            filter: grayscale(0%); /* 【保持】ホバー時にカラー化 */
+            filter: grayscale(0%);
+            transform: translate(-5px, -5px);
+            box-shadow: 25px 25px 0px var(--border-color);
         }
 
         .about-text p {
@@ -185,63 +201,106 @@
         }
 
         /* =========================================
-           5. Works & Research (Bento UI)
+           5. Works & Research Section (Dark / Images)
         ========================================= */
+        .works-section {
+            background-color: var(--black);
+            color: var(--white);
+        }
+
+        .works-section .section-title { color: var(--white); }
+        .works-section .watermark { color: rgba(255, 255, 255, 0.03); }
+
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
+            gap: 30px;
         }
 
         .bento-card {
-            background-color: var(--gray-light);
-            padding: 50px 40px;
-            border-radius: 24px;
             position: relative;
+            border-radius: 24px;
             overflow: hidden;
+            min-height: 450px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 40px;
             transition: var(--transition-smooth);
-            border: 1px solid transparent;
         }
 
-        .bento-card:hover {
-            background-color: var(--white);
-            border-color: var(--black);
-            transform: translateY(-5px);
-            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+        /* カードの背景画像 */
+        .bento-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: var(--transition-smooth);
+            z-index: 1;
+        }
+
+        /* カードごとの画像設定 */
+        .bg-business { background-image: url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1000'); }
+        .bg-research { background-image: url('https://images.unsplash.com/photo-1530497610245-94d3c16cda28?q=80&w=1000'); }
+
+        /* 画像を暗くして文字を読ませるグラデーション */
+        .bento-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to top, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.4) 100%);
+            z-index: 2;
+            transition: var(--transition-smooth);
+        }
+
+        .bento-card:hover .bento-bg {
+            transform: scale(1.08); /* ホバーで画像だけズーム */
+        }
+
+        .bento-content {
+            position: relative;
+            z-index: 3;
         }
 
         .bento-tag {
             font-family: 'Inter', sans-serif;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
             color: var(--white);
-            background-color: var(--black);
+            background-color: var(--accent-red);
             padding: 6px 14px;
             border-radius: 30px;
             display: inline-block;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             letter-spacing: 0.1em;
             text-transform: uppercase;
         }
 
         .bento-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             line-height: 1.4;
+            color: var(--white);
+        }
+
+        .bento-card p {
+            color: var(--gray-light);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
         }
 
         .bento-card ul {
             list-style: none;
-            margin-top: 24px;
-            border-top: 1px solid var(--border-color);
-            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            padding-top: 20px;
         }
 
         .bento-card ul li {
-            font-size: 0.95rem;
-            color: var(--gray-text);
-            margin-bottom: 12px;
+            font-size: 0.9rem;
+            color: var(--gray-text-light);
+            margin-bottom: 10px;
             position: relative;
             padding-left: 16px;
         }
@@ -249,16 +308,14 @@
         .bento-card ul li::before {
             content: '';
             position: absolute;
-            left: 0;
-            top: 10px;
-            width: 4px;
-            height: 4px;
+            left: 0; top: 8px;
+            width: 4px; height: 4px;
             background-color: var(--accent-red);
             border-radius: 50%;
         }
 
         /* =========================================
-           6. Achievements (Minimal List)
+           6. Achievements Section
         ========================================= */
         .achievement-list {
             list-style: none;
@@ -267,44 +324,70 @@
 
         .achievement-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 30px 0;
+            padding: 35px 0;
             border-bottom: 1px solid var(--border-color);
             transition: var(--transition-smooth);
         }
 
         .achievement-item:hover {
             padding-left: 20px;
-            padding-right: 20px;
             background-color: var(--gray-light);
-            border-bottom-color: var(--black);
         }
 
         .achievement-title {
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--black);
+            position: relative;
+            padding-left: 30px;
+        }
+
+        /* 小さな赤いアクセントアイコン */
+        .achievement-title::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 50%;
+            transform: translateY(-50%);
+            width: 12px; height: 12px;
+            border: 2px solid var(--accent-red);
+            border-radius: 2px;
+            transition: var(--transition-smooth);
+        }
+
+        .achievement-item:hover .achievement-title::before {
+            background-color: var(--accent-red);
+            transform: translateY(-50%) rotate(45deg);
         }
 
         /* =========================================
-           7. Contact / Footer (Dark Theme)
+           7. Contact / Footer
         ========================================= */
         .contact-section {
             background-color: var(--black);
+            background-image: url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1600'); /* 締めくくりの抽象的なテクスチャ画像 */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--white);
             text-align: center;
-            padding: 150px 0;
+            padding: 180px 0;
+            position: relative;
         }
 
-        .contact-section .section-title {
-            color: var(--white);
+        .contact-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(10, 10, 10, 0.88);
+            z-index: 1;
         }
 
-        .contact-section p {
-            color: var(--gray-text);
-            margin-bottom: 50px;
+        .contact-section .container {
+            z-index: 2;
         }
+
+        .contact-section .section-title { color: var(--white); }
 
         .btn-primary {
             display: inline-block;
@@ -318,22 +401,24 @@
             border-radius: 50px;
             text-decoration: none;
             transition: var(--transition-smooth);
+            margin-top: 20px;
         }
 
         .btn-primary:hover {
             background-color: var(--white);
             color: var(--black);
-            transform: scale(1.05);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(217, 4, 41, 0.3);
         }
 
         footer {
-            background-color: var(--black);
-            color: var(--gray-text);
+            background-color: #050505;
+            color: var(--gray-text-light);
             text-align: center;
             padding: 30px 0;
             font-size: 0.85rem;
             font-family: 'Inter', sans-serif;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
 
         /* =========================================
@@ -351,17 +436,10 @@
         }
 
         @media (max-width: 768px) {
-            .about-wrapper {
-                grid-template-columns: 1fr;
-            }
-            .section-title {
-                font-size: 2.2rem;
-            }
-            .achievement-item {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
+            .about-wrapper { grid-template-columns: 1fr; }
+            .section-title { font-size: 2.2rem; }
+            .watermark { font-size: 25vw; }
+            .hero-title { margin-top: 40px; }
         }
     </style>
 </head>
@@ -371,86 +449,102 @@
         <div class="hero-content reveal">
             <span class="hero-eyebrow">Keio Univ. / Entrepreneur / RN</span>
             <h1 class="hero-title">
-                <span>TAKEYAMA</span> <span>JUN</span>
+                <span>TAKEYAMA</span>
+                <span>JUN</span>
             </h1>
             <div class="hero-line"></div>
             <p class="hero-desc">現場のリアルを、テクノロジーと学術のエビデンスで変革する。</p>
         </div>
     </section>
 
-    <section class="container">
-        <div class="section-header reveal">
-            <span class="section-number">01</span>
-            <h2 class="section-title">About</h2>
-        </div>
-        
-        <div class="about-wrapper">
-            <div class="about-image-container reveal">
-                <img src="profile.jpg" alt="武山潤" class="about-image">
+    <section class="section-wrapper">
+        <div class="watermark">PROFILE</div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">01</span>
+                <h2 class="section-title">About</h2>
             </div>
-            <div class="about-text reveal" style="transition-delay: 0.2s;">
-                <p>看護師としての臨床的視点と、公衆衛生・医療マネジメントの学術的視点から、医療現場の課題解決に取り組んでいます。</p>
-                <p>現場で直面した課題から訪問看護ステーション向けのAIナビゲーションSaaS事業を立ち上げると同時に、大学院では「いかに市民が迷わず救命できるか」をテーマに新規BLS教育プログラムの開発・研究に従事。</p>
-                <p>「研究」と「事業」の二拠点から、現場の温度感と大学の専門的ネットワークを掛け合わせ、持続可能な新しい医療インフラの構築を目指します。</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="container">
-        <div class="section-header reveal">
-            <span class="section-number">02</span>
-            <h2 class="section-title">Works & Research</h2>
-        </div>
-
-        <div class="bento-grid">
-            <div class="bento-card reveal">
-                <span class="bento-tag">Business</span>
-                <h3>訪問看護AIナビゲーション<br>SaaSの展開</h3>
-                <p>訪問看護ステーションが抱える「教育不足による新人の早期離職」と「複雑な制度による算定漏れ」を同時に解決する事業。日々の業務そのものを実践教育（OJT）に変え、収益最大化を実現します。</p>
-                <ul>
-                    <li>課題：新人教育のリソース不足と複雑な算定制度</li>
-                    <li>解決策：AIによるリアルタイムナビゲーションと実践的OJTの融合</li>
-                    <li>実績：学内ビジネスコンテストにて500万円の投資提案を獲得</li>
-                </ul>
-            </div>
-
-            <div class="bento-card reveal" style="transition-delay: 0.2s;">
-                <span class="bento-tag">Research</span>
-                <h3>PAC連動型BLS<br>教育プログラムの開発と評価</h3>
-                <p>市民の心肺蘇生（CPR）実施を阻む「失敗への不安」を打破するため、救急隊からの折り返し電話による直接指導（プレアライバルコール：PAC）に着目した新規プログラムを開発しています。</p>
-                <ul>
-                    <li>対象：自宅での心停止発生に直面しやすい中高生</li>
-                    <li>方法：PACを想定した実践的教育プログラムとシミュレーション実験</li>
-                    <li>評価：QCPRマネキンによる客観的質向上と心理的不安軽減の定量評価</li>
-                </ul>
+            
+            <div class="about-wrapper">
+                <div class="about-image-container reveal">
+                    <img src="profile.jpg" alt="武山潤" class="about-image">
+                </div>
+                <div class="about-text reveal" style="transition-delay: 0.2s;">
+                    <p>看護師としての臨床的視点と、公衆衛生・医療マネジメントの学術的視点から、医療現場の課題解決に取り組んでいます。</p>
+                    <p>現場で直面した課題から訪問看護ステーション向けのAIナビゲーションSaaS事業を立ち上げると同時に、大学院では「いかに市民が迷わず救命できるか」をテーマに新規BLS教育プログラムの開発・研究に従事。</p>
+                    <p>「研究」と「事業」の二拠点から、現場の温度感と大学の専門的ネットワークを掛け合わせ、持続可能な新しい医療インフラの構築を目指します。</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="container">
-        <div class="section-header reveal">
-            <span class="section-number">03</span>
-            <h2 class="section-title">Achievements</h2>
-        </div>
+    <section class="section-wrapper works-section">
+        <div class="watermark">EXPERTISE</div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">02</span>
+                <h2 class="section-title">Works & Research</h2>
+            </div>
 
-        <ul class="achievement-list">
-            <li class="achievement-item reveal">
-                <span class="achievement-title">慶應義塾大学 看護医療学部 卒業</span>
-            </li>
-            <li class="achievement-item reveal">
-                <span class="achievement-title">看護師 国家資格 保有</span>
-            </li>
-            <li class="achievement-item reveal">
-                <span class="achievement-title">学内ビジネスコンテスト 500万円投資提案獲得</span>
-            </li>
-        </ul>
+            <div class="bento-grid">
+                <div class="bento-card reveal">
+                    <div class="bento-bg bg-business"></div>
+                    <div class="bento-content">
+                        <span class="bento-tag">Business</span>
+                        <h3>訪問看護AIナビゲーション<br>SaaSの展開</h3>
+                        <p>訪問看護ステーションが抱える「教育不足による新人の早期離職」と「複雑な制度による算定漏れ」を同時に解決する事業。日々の業務そのものを実践教育（OJT）に変え、収益最大化を実現します。</p>
+                        <ul>
+                            <li>課題：新人教育のリソース不足と複雑な算定制度</li>
+                            <li>解決策：AIによるリアルタイムナビゲーションと実践的OJTの融合</li>
+                            <li>実績：学内ビジネスコンテストにて500万円の投資提案を獲得</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bento-card reveal" style="transition-delay: 0.2s;">
+                    <div class="bento-bg bg-research"></div>
+                    <div class="bento-content">
+                        <span class="bento-tag">Research</span>
+                        <h3>PAC連動型BLS<br>教育プログラムの開発と評価</h3>
+                        <p>市民の心肺蘇生（CPR）実施を阻む「失敗への不安」を打破するため、救急隊からの折り返し電話による直接指導（プレアライバルコール：PAC）に着目した新規プログラムを開発しています。</p>
+                        <ul>
+                            <li>対象：自宅での心停止発生に直面しやすい中高生</li>
+                            <li>方法：PACを想定した実践的教育プログラムとシミュレーション実験</li>
+                            <li>評価：客観的質向上と心理的不安軽減の定量評価</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-wrapper">
+        <div class="watermark">HISTORY</div>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="section-number">03</span>
+                <h2 class="section-title">Achievements</h2>
+            </div>
+
+            <ul class="achievement-list">
+                <li class="achievement-item reveal">
+                    <span class="achievement-title">慶應義塾大学 看護医療学部 卒業</span>
+                </li>
+                <li class="achievement-item reveal">
+                    <span class="achievement-title">看護師 国家資格 保有</span>
+                </li>
+                <li class="achievement-item reveal">
+                    <span class="achievement-title">学内ビジネスコンテストにて500万円の投資提案を獲得</span>
+                </li>
+            </ul>
+        </div>
     </section>
 
     <section class="contact-section">
         <div class="container reveal">
-            <span class="section-number" style="color: var(--gray-text);">04</span>
+            <span class="section-number" style="color: var(--gray-text-light);">04</span>
             <h2 class="section-title" style="margin-bottom: 30px;">Let's Connect</h2>
-            <p>事業に関するお打ち合わせ、研究へのご協力・ディスカッションなど、<br>どうぞお気軽にご連絡ください。</p>
+            <p style="color: var(--gray-light); margin-bottom: 40px;">事業に関するお打ち合わせ、研究へのご協力・ディスカッションなど、<br>どうぞお気軽にご連絡ください。</p>
             <a href="mailto:takeyamajune@gmail.com" class="btn-primary">Send an Email</a>
         </div>
     </section>
@@ -467,7 +561,6 @@
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('active');
-                        // 一度表示されたら監視を解除
                         observer.unobserve(entry.target);
                     }
                 });
