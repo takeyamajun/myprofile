@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | あなたの名前</title>
+    <title>Portfolio | 武山潤</title>
     <style>
         /* === 1. 変数とリセット === */
         :root {
@@ -126,7 +126,7 @@
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.06);
-            border-color: var(--accent-color); /* ホバー時にうっすら赤枠 */
+            border-color: var(--accent-color);
         }
 
         .card-tag {
@@ -241,8 +241,8 @@
 <body>
 
     <header class="hero">
-        <img src="https://via.placeholder.com/300" alt="Profile Image" class="hero-img">
-        <h1>あなたの名前</h1>
+        <img src="https://via.placeholder.com/300" alt="武山潤のプロフィール画像" class="hero-img">
+        <h1>武山潤</h1>
         <p class="subtitle">現場のリアルを、テクノロジーと学術のエビデンスで変革する。</p>
         <p class="roles">
             慶應義塾大学大学院 健康マネジメント研究科 修士1年<br>
@@ -298,19 +298,19 @@
         <section class="container contact-section fade-in">
             <h2 class="section-title">Contact</h2>
             <p>事業に関するお打ち合わせ、研究へのご協力・ディスカッションなど、<br>どうぞお気軽にご連絡ください。</p>
-            <a href="mailto:your-email@example.com" class="btn">メールで連絡する</a>
+            <a href="mailto:takeyamajune@gmail.com" class="btn">メールで連絡する</a>
         </section>
     </main>
 
     <footer>
-        &copy; 2026 あなたの名前. All Rights Reserved.
+        &copy; 2026 武山潤. All Rights Reserved.
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const faders = document.querySelectorAll('.fade-in');
             const appearOptions = {
-                threshold: 0.15, // 要素が15%見えたら発火
+                threshold: 0.15,
                 rootMargin: "0px 0px -50px 0px"
             };
 
