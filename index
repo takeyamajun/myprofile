@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | あなたの名前</title>
+    <style>
+        /* === 1. 変数とリセット === */
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #111111;
+            --text-sub: #555555;
+            --accent-color: #D32F2F; /* 知的で落ち着いた赤 */
+            --bg-gray: #f9f9f9;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            line-height: 1.8;
+            letter-spacing: 0.03em;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* === 2. 共通スタイル === */
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 40px;
+            position: relative;
+            display: inline-block;
+        }
+
+        /* タイトルの下線を赤のアクセントに */
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+
+        p {
+            color: var(--text-sub);
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* === 3. ヘッダー（トップ画面） === */
+        .hero {
+            text-align: center;
+            padding: 100px 0 60px;
+            background-color: var(--bg-gray);
+        }
+
+        .hero-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 24px;
+            border: 4px solid var(--bg-color);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        }
+
+        .hero h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            letter-spacing: 0.05em;
+        }
+
+        .hero .subtitle {
+            font-size: 14px;
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .hero .roles {
+            font-size: 13px;
+            color: var(--text-sub);
+            max-width: 500px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* === 4. 各セクションのレイアウト === */
+        /* About Section */
+        .about-text {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-main);
+            border-left: 4px solid var(--border-color);
+            padding-left: 20px;
+        }
+
+        /* カードデザイン（事業・研究） */
+        .card {
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.06);
+            border-color: var(--accent-color); /* ホバー時にうっすら赤枠 */
+        }
+
+        .card-tag {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: #fff;
+            font-size: 11px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            letter-spacing: 0.05em;
+        }
+
+        .card-title {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+
+        .card ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 15px;
+        }
+
+        .card ul li {
+            position: relative;
+            padding-left: 20px;
+            font-size: 14px;
+            color: var(--text-sub);
+            margin-bottom: 8px;
+        }
+
+        .card ul li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* 実績リスト */
+        .achievement-list {
+            list-style: none;
+        }
+
+        .achievement-list li {
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .achievement-list li::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: var(--text-main);
+            border-radius: 50%;
+            margin-right: 15px;
+        }
+
+        /* コンタクト（ボタン） */
+        .contact-section {
+            text-align: center;
+            padding-bottom: 100px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--text-main);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(211, 47, 47, 0.3);
+        }
+
+        /* === 5. アニメーション（フェードイン） === */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === 6. フッター === */
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 12px;
+            color: #999;
+            background-color: var(--bg-gray);
+        }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <img src="https://via.placeholder.com/300" alt="Profile Image" class="hero-img">
+        <h1>あなたの名前</h1>
+        <p class="subtitle">現場のリアルを、テクノロジーと学術のエビデンスで変革する。</p>
+        <p class="roles">
+            慶應義塾大学大学院 健康マネジメント研究科 修士1年<br>
+            学生起業家 / 看護師
+        </p>
+    </header>
+
+    <main>
+        <section class="container fade-in">
+            <h2 class="section-title">About Me</h2>
+            <p class="about-text">
+                看護師としての臨床的視点と、公衆衛生・医療マネジメントの学術的視点から、医療現場の課題解決に取り組んでいます。<br><br>
+                現場で直面した課題から訪問看護ステーション向けのAIナビゲーションSaaS事業を立ち上げると同時に、大学院では「いかに市民が迷わず救命できるか」をテーマに新規BLS教育プログラムの開発・研究に従事。<br><br>
+                「研究」と「事業」の二拠点から、現場の温度感と大学の専門的ネットワークを掛け合わせ、持続可能な新しい医療インフラの構築を目指します。
+            </p>
+        </section>
+
+        <section class="container bg-white fade-in">
+            <h2 class="section-title">Works & Research</h2>
+            
+            <div class="card">
+                <span class="card-tag">Business</span>
+                <h3 class="card-title">訪問看護AIナビゲーションSaaSの展開</h3>
+                <p>訪問看護ステーションが抱える「教育不足による新人の早期離職」と「複雑な制度による算定漏れ」を同時に解決するSaaS事業を立ち上げ予定。日々の業務そのものを実践教育（OJT）に変え、ステーションの収益最大化を実現します。</p>
+                <ul>
+                    <li>課題：新人教育のリソース不足と複雑な算定制度</li>
+                    <li>解決策：AIによるリアルタイムナビゲーションと実践的OJTの融合</li>
+                    <li>実績：学内ビジネスコンテストにて500万円の投資提案を獲得</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <span class="card-tag">Research</span>
+                <h3 class="card-title">PAC連動型BLS教育プログラムの開発と評価</h3>
+                <p>市民の心肺蘇生（CPR）実施を阻む「失敗への不安」を打破するため、救急隊からの折り返し電話による直接指導（プレアライバルコール：PAC）に着目した新規プログラムを開発しています。</p>
+                <ul>
+                    <li>対象：自宅での心停止発生に直面しやすい中高生</li>
+                    <li>方法：PACを想定した実践的教育プログラムとシミュレーション実験</li>
+                    <li>評価：QCPRマネキンによる「客観的質の向上」とアンケートによる「心理的不安の軽減」を定量評価</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="container fade-in">
+            <h2 class="section-title">Achievements</h2>
+            <ul class="achievement-list">
+                <li>慶應義塾大学 看護医療学部 卒業</li>
+                <li>看護師 国家資格 保有</li>
+                <li>学内ビジネスコンテストにて投資家より500万円の投資提案を獲得</li>
+            </ul>
+        </section>
+
+        <section class="container contact-section fade-in">
+            <h2 class="section-title">Contact</h2>
+            <p>事業に関するお打ち合わせ、研究へのご協力・ディスカッションなど、<br>どうぞお気軽にご連絡ください。</p>
+            <a href="mailto:your-email@example.com" class="btn">メールで連絡する</a>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 あなたの名前. All Rights Reserved.
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const faders = document.querySelectorAll('.fade-in');
+            const appearOptions = {
+                threshold: 0.15, // 要素が15%見えたら発火
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+        });
+    </script>
+</body>
+</html>
